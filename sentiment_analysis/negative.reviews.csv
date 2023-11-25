@@ -1,0 +1,11 @@
+"","sentiment.score","Country","Block","Q.E.If.you.selected.Yes.in.QD..please.specify","anger","anticipation","disgust","fear","joy","sadness","surprise","trust","negative","positive"
+"3",-0.5,"Pakistan",2,"Everyone was saying that deaths were happening because of corona that's why.",0,0,0,0,0,0,0,0,0,0
+"12",-0.5,"Pakistan",2,"Because they have grown up with this news and are exaggerating it in such a way that it happens when its germs die and so on and so forth.",1,0,1,1,0,1,0,0,1,0
+"24",-0.5,"Bangladesh",2,"Vaccines are not safe",0,0,0,0,0,0,0,0,1,0
+"30",-0.55,"Pakistan",2,"Because it was rumored that this was all true",0,1,0,0,1,0,1,1,0,1
+"36",-1.15,"Pakistan",2,"Because they have grown up with this news and are exaggerating it in such a way that it happens when its germs die and so on and so forth.",0,0,0,1,0,1,0,0,1,0
+"39",-0.75,"Bangladesh",2,"We should not take vaccine",0,0,0,1,0,0,0,0,1,0
+"42",-0.75,"Bangladesh",2,"vaccine can be harmful for body",0,0,0,1,0,0,0,0,1,0
+"51",-0.75,"Pakistan",2,"Everyone was saying that deaths were happening because of corona that's why.",0,0,0,1,0,0,0,0,1,0
+"54",-0.75,"Pakistan",2,"Because it was rumored that this was all true",1,0,1,1,0,1,0,0,1,1
+"57",-0.5,"Pakistan",2,"I thought that news is true because in today's age of social media most people believe what they see on the internet.",0,0,0,0,0,0,0,0,1,0

@@ -1,0 +1,92 @@
+#Load libraries
+library(quickPlot)
+library(syuzhet)
+library(tm)
+library(twitteR)
+library("SnowballC")
+library("wordcloud")
+library("RColorBrewer")
+library("ggplot2")
+
+#Load dataset
+data<- read.csv("sentiment.csv")
+
+#Avoid error related to tolower() invalid multibyte string 
+data[,sapply(data,is.character)] <- sapply(
+  data[,sapply(data,is.character)],
+  iconv,"WINDOWS-1252","UTF-8")
+
+#syuzhet package works only on vectors. So, the data was converted to a vector
+vector <- as.vector(t(data))
+
+#Sentiment analysis
+emotion.data <- get_nrc_sentiment(vector)
+emotion.data2 <- cbind(data, emotion.data)
+sentiment.score <- get_sentiment(vector)
+sentiment.data = cbind(sentiment.score, emotion.data2)
+
+#Getting positive, negative, and neutral reviews with associated scores
+positive.reviews <- sentiment.data[which(sentiment.data$sentiment.score > 0),]
+write.csv(positive.reviews, "positive.reviews.csv")
+
+negative.reviews <- sentiment.data[which(sentiment.data$sentiment.score < 0),]
+write.csv(negative.reviews, "negative.reviews.csv")
+
+neutral.reviews <- sentiment.data[which(sentiment.data$sentiment.score == 0),]
+write.csv(neutral.reviews, "neutral.reviews.csv")
+
+#Plot1: Percentage-Based Means
+percent_vals <- get_percentage_values(sentiment.score, bins=20)
+
+plot(percent_vals,
+     type="l",
+     main="Participant Responses using Percentage-Based Means",
+     xlab="Narrative Time",
+     ylab="Emotional Valence",
+     col="red")
+
+#Plot2: Discrete Cosine Transformation (DCT)
+dct_values <- get_dct_transform(sentiment.score,
+                                low_pass_size = 5,
+                                x_reverse_len = 100,
+                                scale_vals = F,
+                                scale_range = T)
+
+plot(dct_values,
+     type ="l",
+     main ="Participant Responses using Transformed Values",
+     xlab = "Narrative Time",
+     ylab = "Emotional Valence",
+     col = "red")
+
+#Plot3: Emotions Graph
+barplot(sort(colSums(prop.table(emotion.data[, 1:8]))),
+        horiz=TRUE,
+        cex.names=0.7,
+        las=1,
+        main="Emotions in Q-F",
+        xlab = "Percentage")
+
+#Plot One - count of words associated with each sentiment
+library(quickPlot)
+head(emotion.data)
+#transpose
+td<-data.frame(t(emotion.data))
+#The function rowSums computes column sums across rows for each level of a grouping variable.
+td_new <- data.frame(rowSums(td))
+#Transformation and cleaning
+names(td_new) <- "count"
+td_new <- cbind("sentiment" = rownames(td_new), td_new)
+rownames(td_new) <- NULL
+td_new2<-td_new[1:8,]
+quickplot(sentiment, data=td_new2, weight=count, geom="bar", fill=sentiment, ylab="count")+ggtitle("")
+
+#Plot two - count of words associated with each sentiment, expressed as a percentage
+barplot(
+  sort(colSums(prop.table(emotion.data[, 9:10]))), 
+  horiz = TRUE, 
+  cex.names = 0.7, 
+  las = 1, 
+  main = "Emotions in Q-F", xlab="Percentage"
+)
+
