@@ -1,4 +1,4 @@
-# README
+## About
 
 This repository contains the data, code, and figures generated from sentiment analysis used in the study "Dueling COVID-19 Misinformation: Perceptions and Behavior of the Rural Population from South Asian Countries".
 
